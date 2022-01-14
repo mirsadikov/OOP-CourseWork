@@ -1,0 +1,55 @@
+﻿@model IEnumerable<OnlineCarAuction.Models.Car>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Bid to Cars in Auction</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Brand)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductionYear)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartPrice)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Brand)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductionYear)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartPrice)
+                </td>
+                <td>
+                    @Html.ActionLink("Bid", "Bid", "Car", new { id = item.Id }, new { @class = "btn btn-primary"}) 
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

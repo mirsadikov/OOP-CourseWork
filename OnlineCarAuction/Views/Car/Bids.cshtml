@@ -1,0 +1,60 @@
+﻿@model IEnumerable<OnlineCarAuction.Models.Bid>
+
+@{
+	ViewData["Title"] = "Bids";
+	String cId = ViewData["carId"] as String;
+}
+
+<h1>Bids of car ID: @cId</h1>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.Id)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.CarId)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Rate)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.AddedDate)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.ModifiedDate)
+			</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.Id)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.CarId)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Rate)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.AddedDate)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.ModifiedDate)
+				</td>
+				<td>
+					@Html.ActionLink("Edit", "Edit", "Bid", new { id=item.Id }) |
+						@using (Html.BeginForm("DeleteBid", "Car", new { id = item.Id }, FormMethod.Post, true, new { @class = "d-inline"}))
+						{
+							<input type="submit" value="Delete" class="btn btn-danger" />
+						}
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>

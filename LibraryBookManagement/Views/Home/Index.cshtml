@@ -1,0 +1,18 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome to Library Book Management System</h1>
+    <form asp-action="Index" asp-controller="Book">
+        <div class="form-group">
+            <label class="control-label">Seach</label>
+            <input name="query" class="form-control" />
+            <span class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Search" class="btn btn-primary" />
+        </div>
+    </form>
+    <p>All books are <a class="btn btn-primary" asp-area="" asp-controller="Book" asp-action="Index">here</a></p>
+</div>

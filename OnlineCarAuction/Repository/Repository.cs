@@ -1,0 +1,66 @@
+﻿using Microsoft.EntityFrameworkCore;
+using OnlineCarAuction.Context;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace OnlineCarAuction.Repository
+{
+    public class Repository<T> : IRepository<T> where T : BaseEntity
+    {
+        private readonly MyDbContext context;
+        private DbSet<T> entities;
+        string errorMessage = string.Empty;
+        public Repository(MyDbContext context)    //context gets initialized in Startup.cs !
+        {
+            this.context = context;
+            entities = context.Set<T>();
+        }
+        public IEnumerable<T> GetAll()
+        {
+            return entities.AsEnumerable();
+        }
+        public IQueryable<T> GetAsIQueryable()
+        {
+            return entities;
+        }
+        public T Get(long id)
+        {
+            return entities.SingleOrDefault(s => s.Id == id);
+        }
+        public T Insert(T entity)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException("entity");
+            }
+
+            var now = DateTime.Now;
+            entity.AddedDate = now;
+            entity.ModifiedDate = now;
+
+            entities.Add(entity);
+            context.SaveChanges();
+            return entity;
+        }
+        public void Update(T entity)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException("entity");
+            }
+            entity.ModifiedDate = DateTime.Now;
+            context.SaveChanges();
+        }
+        public void Delete(T entity)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException("entity");
+            }
+            entities.Remove(entity);
+            context.SaveChanges();
+        }
+    }
+}
